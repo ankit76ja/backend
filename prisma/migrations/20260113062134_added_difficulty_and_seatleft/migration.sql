@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Trip" ADD COLUMN     "difficulty" TEXT NOT NULL DEFAULT 'Easy',
+ADD COLUMN     "seatLeft" INTEGER NOT NULL DEFAULT 0;

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Trip" ADD COLUMN     "duration" INTEGER NOT NULL DEFAULT 5;

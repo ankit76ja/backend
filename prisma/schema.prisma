@@ -1,0 +1,54 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Trip {
+  id          String           @id @default(uuid())
+  title       String
+  slug        String           @unique
+  description String
+  duration    Int           @default(5)
+  location    String
+  price       Int
+  seatLeft    Int                @default(0)
+  totalSeats  Int   
+  difficulty  String             @default("Easy")
+  startDate   DateTime
+  endDate     DateTime
+  image       String
+  isActive    Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  itinerary   TripItinerary[]
+  bookings    Booking[]
+}
+
+model TripItinerary {
+  id        String   @id @default(uuid())
+  tripId    String
+  day       Int
+  title     String
+  details   String
+  createdAt DateTime @default(now())
+
+  trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, day])
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  tripId    String
+  userName  String
+  userEmail String
+  seats     Int
+  amount    Int
+  status    String   @default("pending") // pending, paid, cancelled
+  createdAt DateTime @default(now())
+
+  trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+}
