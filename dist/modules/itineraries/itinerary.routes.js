@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const itinerary_controller_1 = require("./itinerary.controller");
+const router = (0, express_1.Router)();
+const controller = new itinerary_controller_1.ItineraryController();
+router.post('/', controller.create);
+router.put('/:id', controller.update);
+router.get('/trip/:tripId', controller.getByTrip);
+exports.default = router;
